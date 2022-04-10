@@ -3,9 +3,18 @@ const app = express();
 const port = 3000;
 
 app.get('/', (req,res) => {
-    res.send("<h1>We're in the main page</h1>")
-})
+    res.sendFile(__dirname + '/MainPage.html')
 
+})
+app.get('/MainPage', (req, res) => {
+    res.sendFile(__dirname + '/MainPage.html')
+})
+app.get('/ProductPage', (req, res) => {
+    res.sendFile(__dirname + '/ProductPage.html')
+})
+app.get('/RegistrationPage', (req, res) => {
+    res.sendFile(__dirname + '/RegistrationPage.html')
+})
 app.listen(port, () => {
     console.log(`App listening at http://localhost:${port}`)
 });

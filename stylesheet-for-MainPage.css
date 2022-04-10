@@ -1,3 +1,7 @@
+a {
+    text-decoration: none;
+}
+
 .main-content {
     background-color: rgb(240,240,240);
     padding: 25px 20px 25% 5%;
@@ -6,4 +10,40 @@
 .product-block {
     margin: 25px;
     background-color: rgb(255,255,255);
+}
+
+#navbar {
+    width: 100%;
+    background-color: #fff;
+    -webkit-box-shadow: 0px 6px 10px 0px rgba(34, 60, 80, 0.2);
+    -moz-box-shadow: 0px 6px 10px 0px rgba(34, 60, 80, 0.2);
+    box-shadow: 0px 6px 10px 0px rgba(34, 60, 80, 0.2);
+    margin-bottom: 50px;
+}
+
+.navbar-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 1rem;
+    align-items: center;
+}
+
+.navbar-search {
+    width: 50%;
+}
+
+.regLoginButton {
+    color: #283845;
+    padding: 0.2rem 1rem;
+    border: 2px solid #F29559;
+    border-radius: 4px;
+    align-items: center;
+    font-weight: bold;
+}
+
+.regLoginButton:hover {
+    background-color: #F29559;
+    border: 2px solid #F29559;
+    color: #fff;
+    transition: all 0.2s ease;
 }

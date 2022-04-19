@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const https = require('https');
-
+const nodemailer = require('nodemailer');
 const app = express();
 const port = 3000;
 
@@ -56,6 +56,32 @@ app.get('/RegistrationPage', (req, res) => {
 app.get('/SignInPage', (req, res) => {
     res.sendFile(__dirname + '/SignInPage.html')
 })
+
+app.post('/YourMailAddress', (req, res) => {
+
+    let email = req.body.answer;
+    console.log(email);
+    let transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: 'shopcurio8@gmail.com',
+            pass: '!Example123',
+        },
+    })
+
+    let result = transporter.sendMail({
+        from: '<shopcurio8@gmail.com>',
+        to: email,
+        subject: 'Message from Node js',
+        text: 'This message was sent from Node js server.',
+        html:
+            'This <i>message</i> was sent from <strong>Node js</strong> server.',
+    })
+    console.log(result)
+    res.sendFile(__dirname + '/SignInPage.html');
+})
+
+
 
 app.listen(port, () => {
     console.log(`App listening at http://localhost:${port}`)

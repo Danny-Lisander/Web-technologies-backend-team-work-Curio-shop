@@ -23,7 +23,7 @@ router.get("/users", (req, res, next) => {
     })
 })
 
-router.get("/adminPanel/products", (req, res, next) => {
+router.get("/products", (req, res, next) => {
     res.render("adminPanelOptions/products",{
         n: 3,
         page: ["Users", "Products", "Proposition"],
@@ -37,7 +37,7 @@ router.get("/adminPanel/products", (req, res, next) => {
 })
 
 // Proposition - a person leaves a request for his product to be added to the list on the site.
-router.get("/adminPanel/propositions", (req, res, next) => {
+router.get("/propositions", (req, res, next) => {
     res.render("adminPanelOptions/propositions",{
         n: 3,
         page: ["Users", "Products", "Proposition"],

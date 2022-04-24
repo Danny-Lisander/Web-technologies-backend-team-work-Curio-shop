@@ -5,9 +5,11 @@ const nodemailer = require('nodemailer');
 const app = express();
 const port = 3000;
 
+
 app.use(express.static(__dirname));
 app.use(bodyParser.urlencoded({extended: true}));
-
+app.set('view engine', 'ejs');
+app.set('views', 'temp');
 /*
 const options = {
     "method": "GET",
@@ -47,8 +49,12 @@ app.get('/', (req,res) => {
 app.get('/MainPage', (req, res) => {
     res.sendFile(__dirname + '/MainPage.html')
 })
-app.get('/ProductPage', (req, res) => {
-    res.sendFile(__dirname + '/ProductPage.html')
+app.get('/ProductPage', (req, res, next) => {
+    res.render("ProductPage", {
+    ProdNum: 3, // when 
+    price: 1,
+    currency:'USD'
+    })
 })
 app.get('/RegistrationPage', (req, res) => {
     res.sendFile(__dirname + '/RegistrationPage.html')

@@ -13,8 +13,8 @@ app.set('views', 'temp');
 
 app.get('/', (req, res, next) => {
     res.render("ProductPage", {
-    ProdNum: 3, // when 
-    price: 1,
+    ProdNum: 3, // when we'll add DB, we'll can change this
+    price: [5, 3, 7], // the same, like ProdNum
     currency:'USD'
     })
 })

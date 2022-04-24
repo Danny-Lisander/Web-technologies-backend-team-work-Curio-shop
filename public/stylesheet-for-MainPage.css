@@ -19,6 +19,10 @@ a {
     margin-bottom: 50px;
 }
 
+.admin-navbar {
+    margin-bottom: 0!important;
+}
+
 .navbar-container {
     display: flex;
     justify-content: space-between;
@@ -63,4 +67,26 @@ a {
 .btn_su:hover {
     background-color: #F29559;
     border-color: #F29559;
+}
+
+.tempLogo h3 {
+    margin: 0;
+}
+
+.container-fluid {
+    display: flex;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+}
+
+.table {
+    margin-top: 1rem;
+}
+
+.overflowY {
+    overflow-y: auto;
+    height: 10rem;
 }

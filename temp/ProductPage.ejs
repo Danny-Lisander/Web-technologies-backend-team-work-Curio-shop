@@ -12,17 +12,17 @@
 <div id="navbar" class="sticky-top">
     <div class="navbar-container">
         <div id="logo">
-            <a class="tempLogo" href="MainPage"><h3><b>Curio</b></h3></a>
+            <a class="tempLogo" href="/"><h3><b>Curio</b></h3></a>
         </div>
         <div class="navbar-search">
-            <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <form class="d-flex" action="/productSearch" method="get">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="q">
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
         </div>
         <div id="regLoginButton">
-            <a class="regLoginButton" href="RegistrationPage.html">Sign up</a>
-            <a class="regLoginButton" href="RegistrationPage.html">Sign in</a>
+            <a class="regLoginButton" href="RegistrationPage">Sign up</a>
+            <a class="regLoginButton" href="SignInPage">Sign in</a>
         </div>
     </div>
 </div>
@@ -57,9 +57,7 @@
 <!-- Footer -->
 <footer class="text-center text-lg-start bg-light text-muted">
     <!-- Section: Social media -->
-    <section
-            class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom"
-    >
+    <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
         <!-- Left -->
         <div class="me-5 d-none d-lg-block">
             <span>Get connected with us on social networks:</span>
@@ -99,22 +97,29 @@
                 <!-- Grid column -->
                 <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
                     <!-- Content -->
-                    <h6 class="text-uppercase fw-bold mb-4">
-                        <i class="fas fa-gem me-3"></i>Team name
+                    <h6 class="text-uppercase fw-bold mb-4 text-center" >
+                        <i class="fas fa-gem me-3"></i>Curio Company
                     </h6>
-                    <p>
-                        About our team/project
+                    <p class="overflowY">
+                        We are 100% sure that every person reading this text has experienced a feeling of nostalgia. Each of us wanted to remember
+                        our childhood or youth by playing games, or listening to music on an old device, or even playing CDs on an old player.
+                        And sometimes it's not because you couldn't get through some level in a game on an old console, or you forgot
+                        the words to a song and decided to play a recording of it on the player. No, that's far from it, to put it mildly,
+                        because that game or that song can easily be found on the Internet in the public domain. What we need is the atmosphere
+                        of that carefree time. After all, agree, we no longer want to play that very game and become the best at it again,
+                        we want to play to recreate the very magical atmosphere that we had as children and from which we have only
+                        the warmest memories.
                     </p>
                 </div>
                 <!-- Grid column -->
 
-                <div class="col-md-6 col-lg-4 col-xl-3 mx-auto mb-4">
+                <div class="col-md-6 col-lg-4 col-xl-3 mx-auto mb-4 text-center">
                     <h6>Commnet block</h6>
                 </div>
                 <!-- Grid column -->
                 <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
                     <!-- Links -->
-                    <h6 class="text-uppercase fw-bold mb-4">
+                    <h6 class="text-uppercase fw-bold mb-4 text-center">
                         Contact
                     </h6>
                     <p>

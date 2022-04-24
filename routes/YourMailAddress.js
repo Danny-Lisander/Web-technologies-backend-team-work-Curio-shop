@@ -26,3 +26,5 @@ router.post('/', (req, res) => {
     console.log(result)
     res.sendFile(__dirname + '/SignInPage.ejs');
 })
+
+module.exports = router;

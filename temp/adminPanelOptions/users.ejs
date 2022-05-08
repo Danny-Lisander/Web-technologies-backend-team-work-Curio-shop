@@ -52,14 +52,16 @@
         </tr>
         </thead>
         <tbody>
-        <%for (i = 0;i < usersAmount;i++) {%>
-            <tr>
-                <th scope="row"><%=i+1%></th>
-                <td><%= userName[i]%></td>
-                <td><%= email[i]%></td>
-                <td><%= password[i]%></td>
-            </tr>
-        <%}%>
+        <%
+            if (Array.isArray(mydata)) {
+                for (i = 0;i < mydata.length;i++) {%>
+                    <tr>
+                        <th scope="row"><%=i+1%></th>
+                        <td><%= mydata[i].name%></td>
+                        <td><%= mydata[i].email%></td>
+                        <td><%= mydata[i].password%></td>
+                    </tr>
+                <%}}%>
         </tbody>
     </table>
 </div>

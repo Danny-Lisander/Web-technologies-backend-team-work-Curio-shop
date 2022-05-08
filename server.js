@@ -1,9 +1,22 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const nodemailer = require('nodemailer');
+const dbConfig = require('./config/database.config');
+const mongoose = require('mongoose');
 
 const app = express();
-const port = 3000;
+//const port = 3000;
+
+mongoose.Promise = global.Promise;
+
+mongoose.connect(dbConfig.url, {
+    useNewUrlParser: true
+}).then(() => {
+    console.log("Databse Connected Successfully!!");
+}).catch(err => {
+    console.log('Could not connect to the database', err);
+    process.exit();
+});
 
 app.set('view engine', 'ejs');
 app.set('views', 'temp');
@@ -37,6 +50,12 @@ app.get("/product/:id", (req,res) => {
         descriptions: ["Some awesome description.", "Very nice description", "Facinating description"],
     })
 })
+
+let port = process.env.PORT;
+if (port == null || port == "") {
+    port = 3000;
+}
+
 app.listen(port, () => {
     console.log(`App listening at http://localhost:${port}`)
 });

@@ -1,4 +1,5 @@
 const express = require("express");
+const UserController  = require("../controllers/UserController");
 const router = express.Router();
 
 router.get("/", (req, res, next) => {
@@ -11,16 +12,7 @@ router.get("/", (req, res, next) => {
 })
 
 router.get("/users", (req, res, next) => {
-    res.render("adminPanelOptions/users",{
-        n: 3,
-        page: ["Users", "Products", "Proposition"],
-        classes: ["fa-users", "fa-cart-shopping", "fa-file"],
-        link: ["users","products","propositions"],
-        usersAmount: 3, // it's all like the example, how it will work
-        userName: ["Konysbay Nurkuisa","Dosmukhamedov Aizat","Alexandrov Daniil"],
-        email: ["nurkuisa@email.com", "aizat@email.com", "daniil@email.com"],
-        password: ["qwertyujiksnbjhvabksjnvmkl26+af2b+asf", "jiksnbjhvabksjnvmkl26+af2b+asfasasgasd", "aisfbvaskv54151asv5a4sasvads1v5adsfb"]
-    })
+    UserController.findAll(req, res);
 })
 
 router.get("/products", (req, res, next) => {

@@ -14,7 +14,8 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true
-    }
+    },
+    roles: [{type: String, ref: 'Role'}]
 });
 
 const user = new mongoose.model('Users', userSchema);

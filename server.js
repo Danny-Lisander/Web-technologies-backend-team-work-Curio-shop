@@ -6,7 +6,6 @@ const mongoose = require('mongoose');
 
 const app = express();
 //const port = 3000;
-
 mongoose.Promise = global.Promise;
 
 mongoose.connect(dbConfig.url, {
@@ -31,13 +30,16 @@ app.use("/signInPage", require("./routes/SignInPage")); // if localhost:3000/Sig
 app.use("/yourMailAddress", require("./routes/YourMailAddress"));
 app.use("/productSearch", require("./routes/ProductSearch")); // if local
 app.use("/adminPanel", require("./routes/AdminPanel"));
+app.use("/", require("./routes/Main")); //
 
 app.get('/', (req, res, next) => {
-    res.render("ProductPage", {
-    ProdNum: 3, // when we'll add DB, we'll can change this
-    price: [5, 3, 7], // the same, like ProdNum
-    currency:'USD'
-    })
+
+
+    // res.render("ProductPage", {
+    // ProdNum: 3, // when we'll add DB, we'll can change this
+    // price: [5, 3, 7], // the same, like ProdNum
+    // currency:'USD'
+    // })
 })
 
 app.get("/product/:id", (req,res) => {
@@ -48,8 +50,9 @@ app.get("/product/:id", (req,res) => {
         price: [5, 3, 7], // the same, like ProdNum
         currency:'USD',
         descriptions: ["Some awesome description.", "Very nice description", "Facinating description"],
-    })
+    }) // и перенести это в другой рутер...
 })
+
 
 let port = process.env.PORT;
 if (port == null || port == "") {
@@ -59,3 +62,11 @@ if (port == null || port == "") {
 app.listen(port, () => {
     console.log(`App listening at http://localhost:${port}`)
 });
+
+
+
+
+
+
+
+

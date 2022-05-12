@@ -1,27 +1,42 @@
 const UserModel = require('../models/UserModel');
+const ProductController = require('../controllers/ProductController')
+const Role = require('../models/Role');
+const {validationResult, check} = require("express-validator");
+const bcrypt = require("bcryptjs");
 
 // Create and Save a new user
 exports.create = async (req, res) => {
-    if (!req.body.userName && !req.body.email && !req.body.password && !req.body.confirmPassword) {
-        res.status(400).send({ message: "Content can not be empty!" });
-    }
+    const errors = validationResult(req)
 
+    // if (!errors.isEmpty()) {
+    //     //res.status(404).send(errors);
+    //     alert({errors: errors})
+    //     // res.render('RegistrationPage', { errors: errors });
+    //     res.render('registrationPage.ejs');
+    // }
+    const userRole = await Role.findOne({value: "User"})
     const user = new UserModel({
         name: req.body.userName,
         email: req.body.email,
-        password: req.body.password
+        password: req.body.password,
+        roles: [userRole.value]
     });
 
-    await user.save().then(data => {
-        res.send({
-            message: "User created successfully!!",
-            user: data
-        });
-    }).catch(err => {
-        res.status(500).send({
-            message: err.message || "Some error occurred while creating user"
-        });
-    });
+    // Hash password and save user
+    bcrypt.genSalt(10, (err, salt) =>
+        bcrypt.hash(user.password, salt, (err, hash) => {
+            if(err) throw err;
+            // Set password to hashed
+            user.password = hash;
+
+            user.save().then(data => {
+                ProductController.findAll(req, res)
+            }).catch(err => {
+                res.status(500).send({
+                    message: err.message || "Some error occurred while creating user"
+                });
+            });
+    }))
 };
 
 // Retrieve all users from the database.
@@ -49,6 +64,14 @@ exports.findOne = async (req, res) => {
         res.status(404).json({ message: error.message});
     }
 };
+
+exports.getUsers = async (req, res) =>{
+    try{
+
+    } catch (error){
+        res.status(400).json({ message: error.message});
+    }
+}
 
 // Update a user by the id in the request
 exports.update = async (req, res) => {
@@ -92,4 +115,49 @@ exports.destroy = async (req, res) => {
             message: err.message
         });
     });
+};
+
+
+const {secret} = require('../config/config')
+const jwt = require("jsonwebtoken");
+
+const generateAccessToken = (id, roles) => {
+    const payload = {
+        id,
+        roles
+    }
+    return jwt.sign(payload, secret, {expiresIn: "1h"})
+}
+
+exports.signIN = async (req, res) => {
+    try{
+        let errors = [];
+        const email = req.body.email;
+        const password = req.body.password;
+        await UserModel.findOne({email: email})
+            .then(data => {
+                if(!data) {
+                    errors.push({msg: "This email is registered!"})
+                    res.render("SignInPage", {
+                        errors
+                    })
+                } else {
+                    const validPassword = bcrypt.compareSync(password, data.password)
+                    if(!validPassword){
+                        errors.push({msg: "Password is not correct!"})
+                        res.render("SignInPage", {
+                            errors
+                        })
+                    }
+                    else{
+                        const token = generateAccessToken(data._id, data.roles)
+                    }
+                }
+            })
+            .catch(err => console.log(err));
+
+
+    } catch (error){
+        res.status(500).send( {message: error.message} )
+    }
 };

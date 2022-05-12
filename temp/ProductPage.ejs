@@ -39,13 +39,13 @@
         </ul>
     </div>
     <div class="row">
-        <%for(i = 0; i < ProdNum; i++) {%>
+        <%for(i = 0; i < prod.length; i++) {%>
         <div class="col-sm-3 product-block">
             <div class="card" style="width: 18rem;">
                 <img src="public/temp_Image.jpg" class="card-img-top" alt="...">
                 <div class="card-body">
-                    <h5 class="card-title">Product <%=i+1%></h5>
-                    <p class="card-text card-price"><%=price[i]%> <%= currency%></p>
+                    <h5 class="card-title"><%=prod[i].productName%></h5>
+                    <p class="card-text card-price"><%=prod[i].price%> <%= prod[i].currency%></p>
                     <a href="/product/<%=i%>" class="btn btn-primary">See</a>
                 </div>
             </div>

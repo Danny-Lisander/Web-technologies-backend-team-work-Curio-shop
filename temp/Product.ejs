@@ -39,9 +39,9 @@
     <div class="card mb-3">
         <img src="../public/temp_Image.jpg" class="card-img-top" alt="...">
         <div class="card-body">
-            <h5 class="card-title">Product <%= id+1%></h5>
-            <p class="card-text"><%= descriptions[id]%></p>
-            <p class="card-text"><small class="text-muted">Price: <%= price[id]%> <%= currency%></small></p>
+            <h5 class="card-title"><%= prod.productName%></h5>
+            <p class="card-text"><%= prod.description%></p>
+            <p class="card-text"><small class="text-muted">Price: <%= prod.price%> <%= prod.currency%></small></p>
         </div>
     </div>
 </div>

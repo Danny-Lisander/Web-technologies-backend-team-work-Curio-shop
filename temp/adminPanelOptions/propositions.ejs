@@ -47,17 +47,21 @@
         <tr>
             <th scope="col">#</th>
             <th scope="col">Product name</th>
+            <th scope="col">Price</th>
             <th scope="col">Description</th>
+            <th scope="col">Data</th>
             <th scope="col">Owner ID</th>
         </tr>
-        </thead>
+        </thead> 
         <tbody>
-        <%for (i = 0;i < propositionsAmount;i++) {%>
+        <%for (i = 0;i < mydata.length;i++) {%>
         <tr>
             <th scope="row"><%=i+1%></th>
-            <td><%= productName[i]%></td>
-            <td><%= description[i]%></td>
-            <td><%= ownerId[i]%></td>
+            <td><a href="/product/<%= mydata[i]._id%>"><%= mydata[i].productName%></a></td>
+            <td><%= mydata[i].price%> <%= mydata[i].currency%></td>
+            <td><%= mydata[i].description%></td>
+            <td><%= mydata[i].date%></td>
+            <td><%= mydata[i].ownerID%></td>
         </tr>
         <%}%>
         </tbody>

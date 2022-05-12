@@ -1,5 +1,6 @@
 const express = require("express");
 const UserController  = require("../controllers/UserController");
+const ProductController = require("../controllers/ProductController")
 const router = express.Router();
 
 router.get("/", (req, res, next) => {
@@ -16,30 +17,13 @@ router.get("/users", (req, res, next) => {
 })
 
 router.get("/products", (req, res, next) => {
-    res.render("adminPanelOptions/products",{
-        n: 3,
-        page: ["Users", "Products", "Proposition"],
-        classes: ["fa-users", "fa-cart-shopping", "fa-file"],
-        link: ["users","products","propositions"],
-        productsAmount: 3,  // it's all like the example, how it will work
-        productName: ["Product 1","Product 2","Product 3"],
-        productPrice: ["100", "200", "300"],
-        ownerId: ["1", "2", "3"]
-    })
+    ProductController.findall(req, res);
+
 })
 
 // Proposition - a person leaves a request for his product to be added to the list on the site.
 router.get("/propositions", (req, res, next) => {
-    res.render("adminPanelOptions/propositions",{
-        n: 3,
-        page: ["Users", "Products", "Proposition"],
-        classes: ["fa-users", "fa-cart-shopping", "fa-file"],
-        link: ["users","products","propositions"],
-        propositionsAmount: 1,  // it's all like the example, how it will work
-        productName: ["Product 1"],
-        description: ["This is the 150 years old vase."],
-        ownerId: ["1"]
-    })
+    ProductController.findProposition(req, res);
 })
 
 module.exports = router;

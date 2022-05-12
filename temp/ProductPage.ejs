@@ -31,11 +31,9 @@
             Dropdown link
         </a>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <form action="convert">
-                <li><input type="text" name="USD">USD</li>
-                <li><input type="text" name="KZT">KZT</li>
-                <li><input type="text" name="EUR">EUR</li>
-            </form>
+            <li><a class="dropdown-item" href="#">USD</a></li>
+            <li><a class="dropdown-item" href="#">KZT</a></li>
+            <li><a class="dropdown-item" href="#">EUR</a></li>
         </ul>
     </div>
     <div class="row">
@@ -46,7 +44,7 @@
                 <div class="card-body">
                     <h5 class="card-title"><%=prod[i].productName%></h5>
                     <p class="card-text card-price"><%=prod[i].price%> <%= prod[i].currency%></p>
-                    <a href="/product/<%=i%>" class="btn btn-primary">See</a>
+                    <a href="/product/<%=prod[i]._id%>" class="btn btn-primary">See</a>
                 </div>
             </div>
         </div><%}%>

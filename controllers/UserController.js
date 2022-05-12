@@ -1,5 +1,5 @@
 const UserModel = require('../models/UserModel');
-const ProductController = require('../controllers/ProductController')
+const UserController = require('../controllers/UserController')
 const Role = require('../models/Role');
 const {validationResult, check} = require("express-validator");
 const bcrypt = require("bcryptjs");
@@ -30,7 +30,7 @@ exports.create = async (req, res) => {
             user.password = hash;
 
             user.save().then(data => {
-                ProductController.findAll(req, res)
+                UserController.findAll(req, res)
             }).catch(err => {
                 res.status(500).send({
                     message: err.message || "Some error occurred while creating user"

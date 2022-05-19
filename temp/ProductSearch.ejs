@@ -26,21 +26,25 @@
     </div>
 </div>
 <div class="container main-content">
-    <div class="dropdown">
-        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown link
-        </a>
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <li><a class="dropdown-item" href="#">USD</a></li>
-            <li><a class="dropdown-item" href="#">KZT</a></li>
-            <li><a class="dropdown-item" href="#">EUR</a></li>
-        </ul>
-    </div>
+<!--    <div class="dropdown">-->
+<!--        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">-->
+<!--            Dropdown link-->
+<!--        </a>-->
+<!--        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">-->
+<!--            <li><a class="dropdown-item" href="#">USD</a></li>-->
+<!--            <li><a class="dropdown-item" href="#">KZT</a></li>-->
+<!--            <li><a class="dropdown-item" href="#">EUR</a></li>-->
+<!--        </ul>-->
+<!--    </div>-->
     <div class="row">
         <%for(i = 0; i < ProdAmounts; i++) {%>
-            <div class="col-sm-3 product-block">
+            <div class="col-sm-3 product-block d-flex align-items-stretch">
                 <div class="card" style="width: 18rem;">
-                    <img src="<%= infos[i].data.visuals.avatarImage.sources[0].url %>" alt="...">
+                    <%if(infos[i].data.visuals.avatarImage != null && infos[i].data.visuals.avatarImage.sources[0] != null) {%>
+                        <div class="card-img" style="background-image: url('<%= infos[i].data.visuals.avatarImage.sources[0].url %>')"></div>
+                    <%} else {%>
+                        <div class="card-img" style="background-image: url('public/temp_Image.jpg')"></div>
+                    <%}%>
                     <div class="card-body">
                         <h5 class="card-title"><%= infos[i].data.profile.name%></h5>
                         <a href="<%= infos[i].data.uri%>" class="btn btn-primary">Spotify</a>

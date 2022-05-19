@@ -9,7 +9,7 @@ router.get('/', (req,res) => {
         "method": "GET",
         "hostname": "spotify23.p.rapidapi.com",
         "port": null,
-        "path": "/search/?q=" + query + "&type=artists&offset=0&limit=15&numberOfTopResults=5",
+        "path": encodeURI("/search/?q=" + query + "&type=artists&offset=0&limit=15&numberOfTopResults=5"),
         "headers": {
             "X-RapidAPI-Host": "spotify23.p.rapidapi.com",
             "X-RapidAPI-Key": "182770ccb7mshe1b3bb6d0e5e6efp186144jsn2777933e09c2",
@@ -34,6 +34,7 @@ router.get('/', (req,res) => {
 
             console.log(q);
             console.log(itemsAmount);
+            // res.send(informations);
             res.render("ProductSearch", {
                 ProdAmounts: itemsAmount,
                 infos: informations

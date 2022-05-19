@@ -90,3 +90,10 @@ a {
     overflow-y: auto;
     height: 10rem;
 }
+
+.card-img {
+    width: auto;
+    height: 273px;
+    background-position: top;
+    background-size: cover;
+}

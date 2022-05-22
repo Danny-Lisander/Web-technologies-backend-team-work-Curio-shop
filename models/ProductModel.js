@@ -33,7 +33,8 @@ const ProductSchema = new mongoose.Schema({
         default: false
     },
     imgSrc:{
-        type: [Number]
+        type: String,
+        default: ''
     }
 });
 

@@ -5,19 +5,21 @@ const UserModel = require("../models/UserModel");
 exports.create = async (req, res) => {
 
 };
+
 //for MainPage
 exports.findAll = async (reg, res) =>{
     try {
         const product = await ProductModel.find({ approved: true });
-        // return product;
+        // return product; <-- this
         res.status(200).render('ProductPage', {
             prod: product
         });
     } catch(error) {
-        res.status(404).render('adminPanelOptions/products', { prod: error.message });
+        res.status(404).render('ProductPage', { prod: error.message });
 
     }
 };
+
 //for AdminPanel
 exports.findall = async (reg, res) =>{
     try {
@@ -49,8 +51,26 @@ exports.findProposition = async (reg, res) =>{
     }
 };
 
+// Find Product with name
+exports.findOneByName = async (req, res) => {
+    try {
+        const product = await ProductModel.find({
+            productName: {$regex: req.query.q, $options: "i"},
+            approved: true
+        });
 
-// Find a single User with an id
+        res.status(200).render('ProductSearch', {
+            infos: product
+        });
+
+        // res.status(200).send(product);
+    } catch(error) {
+        res.status(404).json({ message: error.message});
+    }
+};
+
+
+// Find a single Product with an id
 exports.findOne = async (req, res) => {
     try {
         const product = await ProductModel.findById(req.params.id);

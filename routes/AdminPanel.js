@@ -18,7 +18,6 @@ router.get("/users", (req, res, next) => {
 
 router.get("/products", (req, res, next) => {
     ProductController.findall(req, res);
-
 })
 
 // Proposition - a person leaves a request for his product to be added to the list on the site.

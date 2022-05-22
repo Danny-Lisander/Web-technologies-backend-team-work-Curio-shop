@@ -32,15 +32,8 @@ app.use("/productSearch", require("./routes/ProductSearch")); // if local
 app.use("/adminPanel", require("./routes/AdminPanel"));
 app.use("/", require("./routes/Main")); //
 
-app.get('/', (req, res, next) => {
-
-})
-
-
-
-
 let port = process.env.PORT;
-if (port == null || port == "") {
+if (port == null || port === "") {
     port = 3000;
 }
 

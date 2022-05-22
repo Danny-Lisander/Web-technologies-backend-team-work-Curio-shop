@@ -91,6 +91,17 @@ a {
     height: 10rem;
 }
 
+.product-block {
+    width: 290px;
+}
+
+.card {
+    width: 100%;
+    -webkit-box-shadow: 4px 4px 10px 0px rgba(34, 60, 80, 0.31);
+    -moz-box-shadow: 4px 4px 10px 0px rgba(34, 60, 80, 0.31);
+    box-shadow: 4px 4px 10px 0px rgba(34, 60, 80, 0.31);
+}
+
 .card-img {
     width: auto;
     height: 273px;

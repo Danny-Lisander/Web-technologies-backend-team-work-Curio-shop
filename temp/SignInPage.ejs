@@ -3,79 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <title>Sign In</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link rel = "stylesheet" href = "public/stylesheet-for-MainPage.css">
-    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <%- include( 'include/head' ) %>
 </head>
 <body>
-<div id="navbar" class="sticky-top">
-    <div class="navbar-container">
-        <div id="logo">
-            <a class="tempLogo" href="/"><h3><b>Curio</b></h3></a>
-        </div>
-        <div class="navbar-search">
-            <form class="d-flex" action="/productSearch" method="get">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="q">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
-        </div>
-        <div id="regLoginButton">
-            <a class="regLoginButton" href="registrationPage">Sign up</a>
-            <a class="regLoginButton" href="signInPage">Sign in</a>
-        </div>
-    </div>
-</div>
+<%- include( 'include/navbar' ) %>
 <main class="form-signin text-center">
-    <form>
-        <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
-        <form action = "/registrationPage" method = "post">
-            <h1 class="h3 mb-3 fw-normal">Please sign up</h1>
-            <%
-            if(typeof errors != 'undefined') {
-                errors.forEach((error) => {
-            %>
-                    <div class="alert alert-danger" role="alert">
-                        <%= error.msg%>
-                    </div>
-            <%
-                })
-            }
-            %>
-            <div class="form-floating">
-                <input type="text" class="form-control" id="" name="userName" placeholder="User name"  value="<%= typeof username != 'undefined' ? username : ''%>">
-                <label for="floatingInput">User name</label>
-            </div>
-            <div class="form-floating">
-                <input type="email" class="form-control" id="floatingInput" name = "email" placeholder="name@example.com" value="<%= typeof email != 'undefined' ? email : ''%>">
-                <label for="floatingInput">Email address</label>
-            </div>
-            <div class="form-floating">
-                <input type="password" class="form-control" id="floatingPassword" name = "password" placeholder="Password" value="<%= typeof password != 'undefined' ? password : ''%>">
-                <label for="floatingPassword">Password</label>
-            </div>
-            <div class="form-floating">
-                <input type="password" class="form-control" id="floatingPasswordConfirm" name = "confirmPassword" placeholder="Confirm password"  value="<%= typeof confirmPassword != 'undefined' ? confirmPassword : ''%>">
-                <label for="floatingPassword">Confirm password</label>
-            </div>
-            <div class="checkbox mb-3">
-                <label>
-                    <input type="checkbox" value="remember-me"> Remember me
-                </label>
-            </div>
-            <button class="btn_su w-100 btn btn-lg btn-primary" type="submit">Sign up</button>
-            <p class="mt-5 mb-3 text-muted">© 2022 - to be continued</p>
-        </form>
+    <form action = "/registrationPage" method = "post">
+        <h1 class="h3 mb-3 fw-normal">Please sign up</h1>
+        <%
+        if(typeof errors != 'undefined') {
+            errors.forEach((error) => {
+        %>
+                <div class="alert alert-danger" role="alert">
+                    <%= error.msg%>
+                </div>
+        <%
+            })
+        }
+        %>
         <div class="form-floating">
-            <input type="email" class="form-control" name="email" id="floatingInput" placeholder="name@example.com">
+            <input type="text" class="form-control" id="" name="userName" placeholder="User name"  value="<%= typeof username != 'undefined' ? username : ''%>">
+            <label for="floatingInput">User name</label>
+        </div>
+        <div class="form-floating">
+            <input type="email" class="form-control" id="floatingInput" name = "email" placeholder="name@example.com" value="<%= typeof email != 'undefined' ? email : ''%>">
             <label for="floatingInput">Email address</label>
         </div>
         <div class="form-floating">
-            <input type="password" class="form-control" name="password" id="floatingPassword" placeholder="Password">
+            <input type="password" class="form-control" id="floatingPassword" name = "password" placeholder="Password" value="<%= typeof password != 'undefined' ? password : ''%>">
             <label for="floatingPassword">Password</label>
         </div>
-        <button class="btn_su w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
-        <p class="mt-5 mb-3 text-muted">© 2022 - to be continued</p>
+        <div class="form-floating">
+            <input type="password" class="form-control" id="floatingPasswordConfirm" name = "confirmPassword" placeholder="Confirm password"  value="<%= typeof confirmPassword != 'undefined' ? confirmPassword : ''%>">
+            <label for="floatingPassword">Confirm password</label>
+        </div>
+        <div class="checkbox mb-3">
+            <label>
+                <input type="checkbox" value="remember-me"> Remember me
+            </label>
+        </div>
     </form>
+    <button class="btn_su w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+    <p class="mt-2">or <a href="/registrationPage">Create account</a></p>
+    <p class="mt-5 mb-3 text-muted">© 2022 - to be continued</p>
 </main>
 </body>
 </html>

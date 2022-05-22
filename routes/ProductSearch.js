@@ -1,8 +1,13 @@
 const express = require("express");
 const https = require("https");
 const router = express.Router();
+const ProductController = require("../controllers/ProductController");
 
 router.get('/', (req,res) => {
+
+    ProductController.findOneByName(req, res);
+
+    /*
     let query = req.query.q;
 
     const options = {
@@ -45,6 +50,7 @@ router.get('/', (req,res) => {
     });
 
     request.end();
+    */
 })
 
 module.exports = router;

@@ -8,12 +8,6 @@ const bcrypt = require("bcryptjs");
 exports.create = async (req, res) => {
     const errors = validationResult(req)
 
-    // if (!errors.isEmpty()) {
-    //     //res.status(404).send(errors);
-    //     alert({errors: errors})
-    //     // res.render('RegistrationPage', { errors: errors });
-    //     res.render('registrationPage.ejs');
-    // }
     const userRole = await Role.findOne({value: "User"})
     const user = new UserModel({
         name: req.body.userName,
@@ -30,7 +24,7 @@ exports.create = async (req, res) => {
             user.password = hash;
 
             user.save().then(data => {
-                UserController.findAll(req, res)
+                res.status(200).render('ProductPage');
             }).catch(err => {
                 res.status(500).send({
                     message: err.message || "Some error occurred while creating user"

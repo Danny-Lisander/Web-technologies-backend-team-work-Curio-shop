@@ -9,7 +9,7 @@
 <%- include( 'include/navbar' ) %>
 <main class="form-signin text-center">
     <form action = "/registrationPage" method = "post">
-        <h1 class="h3 mb-3 fw-normal">Please sign up</h1>
+        <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
         <%
         if(typeof errors != 'undefined') {
             errors.forEach((error) => {
@@ -22,25 +22,12 @@
         }
         %>
         <div class="form-floating">
-            <input type="text" class="form-control" id="" name="userName" placeholder="User name"  value="<%= typeof username != 'undefined' ? username : ''%>">
-            <label for="floatingInput">User name</label>
-        </div>
-        <div class="form-floating">
             <input type="email" class="form-control" id="floatingInput" name = "email" placeholder="name@example.com" value="<%= typeof email != 'undefined' ? email : ''%>">
             <label for="floatingInput">Email address</label>
         </div>
         <div class="form-floating">
             <input type="password" class="form-control" id="floatingPassword" name = "password" placeholder="Password" value="<%= typeof password != 'undefined' ? password : ''%>">
             <label for="floatingPassword">Password</label>
-        </div>
-        <div class="form-floating">
-            <input type="password" class="form-control" id="floatingPasswordConfirm" name = "confirmPassword" placeholder="Confirm password"  value="<%= typeof confirmPassword != 'undefined' ? confirmPassword : ''%>">
-            <label for="floatingPassword">Confirm password</label>
-        </div>
-        <div class="checkbox mb-3">
-            <label>
-                <input type="checkbox" value="remember-me"> Remember me
-            </label>
         </div>
     </form>
     <button class="btn_su w-100 btn btn-lg btn-primary" type="submit">Sign in</button>

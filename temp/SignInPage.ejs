@@ -8,7 +8,7 @@
 <body>
 <%- include( 'include/navbar' ) %>
 <main class="form-signin text-center">
-    <form action = "/registrationPage" method = "post">
+    <form action = "/signInPage" method = "post">
         <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
         <%
         if(typeof errors != 'undefined') {
@@ -29,8 +29,8 @@
             <input type="password" class="form-control" id="floatingPassword" name = "password" placeholder="Password" value="<%= typeof password != 'undefined' ? password : ''%>">
             <label for="floatingPassword">Password</label>
         </div>
-    </form>
     <button class="btn_su w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+    </form>
     <p class="mt-2">or <a href="/registrationPage">Create account</a></p>
     <p class="mt-5 mb-3 text-muted">© 2022 - to be continued</p>
 </main>

@@ -4,6 +4,7 @@ const Role = require('../models/Role');
 const {validationResult, check} = require("express-validator");
 const bcrypt = require("bcryptjs");
 
+
 // Create and Save a new user
 exports.create = async (req, res) => {
     const errors = validationResult(req)
@@ -24,7 +25,7 @@ exports.create = async (req, res) => {
             user.password = hash;
 
             user.save().then(data => {
-                res.status(200).render('ProductPage');
+                ProductController.findAll(req, res);
             }).catch(err => {
                 res.status(500).send({
                     message: err.message || "Some error occurred while creating user"
@@ -114,12 +115,14 @@ exports.destroy = async (req, res) => {
 
 const {secret} = require('../config/config')
 const jwt = require("jsonwebtoken");
+const ProductController = require("./ProductController");
 
 const generateAccessToken = (id, roles) => {
     const payload = {
         id,
         roles
     }
+
     return jwt.sign(payload, secret, {expiresIn: "1h"})
 }
 
@@ -145,12 +148,12 @@ exports.signIN = async (req, res) => {
                     }
                     else{
                         const token = generateAccessToken(data._id, data.roles)
+
+                        // return res.json({token})
                     }
                 }
             })
             .catch(err => console.log(err));
-
-
     } catch (error){
         res.status(500).send( {message: error.message} )
     }

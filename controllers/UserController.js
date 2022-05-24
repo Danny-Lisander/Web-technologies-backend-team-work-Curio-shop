@@ -123,7 +123,11 @@ const generateAccessToken = (id, roles) => {
         roles
     }
 
-    return jwt.sign(payload, secret, {expiresIn: "1h"})
+    const token =  jwt.sign(payload, secret, { expiresIn: "1h"})
+    return res.cookie("curio_access_token", token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+    })
 }
 
 exports.signIN = async (req, res) => {
@@ -147,9 +151,19 @@ exports.signIN = async (req, res) => {
                         })
                     }
                     else{
-                        const token = generateAccessToken(data._id, data.roles)
+                        // const token = generateAccessToken(data._id, data.roles)
+                        let id = data._id
+                        let roles = data.roles
+                        const payload = {
+                            id,
+                            roles
+                        }
 
-                        // return res.json({token})
+                        const token =  jwt.sign(payload, secret, { expiresIn: "1h"})
+                        return res.cookie("curio_access_token", token, {
+                            httpOnly: true,
+                            secure: process.env.NODE_ENV === "production",
+                        })
                     }
                 }
             })
@@ -158,3 +172,10 @@ exports.signIN = async (req, res) => {
         res.status(500).send( {message: error.message} )
     }
 };
+
+exports.logOUT = async (req, res) => {
+    return res
+        .clearCookie("curio_access_token")
+        .status(200)
+        .render('SignInPage.ejs')
+}

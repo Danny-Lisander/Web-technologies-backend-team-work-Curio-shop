@@ -3,6 +3,8 @@ const bodyParser = require('body-parser');
 const nodemailer = require('nodemailer');
 const dbConfig = require('./config/database.config');
 const mongoose = require('mongoose');
+const cookieParser = require("cookie-parser");
+
 
 const app = express();
 //const port = 3000;
@@ -23,6 +25,7 @@ app.set('views', 'temp');
 
 app.use(express.static(__dirname));
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(cookieParser());
 
 // routes
 app.use("/registrationPage", require("./routes/RegistrationPage")); // if localhost:3000/RegistrationPage

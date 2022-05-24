@@ -41,16 +41,23 @@ exports.findAllCUR = async (req, res) =>{
             amount: amountToConvert
         }
     );
-    currencyConverter.convert().then((response)=>{
-        console.log(amountToConvert + " " + fromCurrency + " is equal to " +
-            response + " " + toCurrency);
-        cur = response
-    });}
+    cur = await currencyConverter.convert()
+        .then(
+            // (response)
+    //         =>{
+    //     console.log(amountToConvert + " " + fromCurrency + " is equal to " +
+    //         response + " " + toCurrency);
+    //     cur = response
+    //
+    // }
+    );
+    }
     else{ cur = 1}
 
 
     try {
         const product = await ProductModel.find({ approved: true });
+        // console.log(cur)
         // return product; <-- this
         res.status(200).render('ProductPage', {
             prod: product,

@@ -1,5 +1,7 @@
 const ProductModel = require('../models/ProductModel');
 const UserModel = require("../models/UserModel");
+const CC = require("currency-converter-lt");
+const {response} = require("express");
 
 // Create and Save a new user
 exports.create = async (req, res) => {
@@ -8,11 +10,53 @@ exports.create = async (req, res) => {
 
 //for MainPage
 exports.findAll = async (reg, res) =>{
+    let cur = 1;
     try {
         const product = await ProductModel.find({ approved: true });
         // return product; <-- this
         res.status(200).render('ProductPage', {
-            prod: product
+            prod: product,
+            CUR: cur,
+            CURRENCY: 'KZT'
+
+        });
+    } catch(error) {
+        res.status(404).render('ProductPage', { prod: error.message });
+
+    }
+};
+
+
+exports.findAllCUR = async (req, res) =>{
+    const _CUR = req.params.CUR;
+    let cur;
+    if (_CUR !== "KZT"){
+    let fromCurrency = "KZT";
+    let toCurrency = _CUR;
+    let amountToConvert = 1;
+    let currencyConverter = new CC(
+        {
+            from: fromCurrency,
+            to: toCurrency,
+            amount: amountToConvert
+        }
+    );
+    currencyConverter.convert().then((response)=>{
+        console.log(amountToConvert + " " + fromCurrency + " is equal to " +
+            response + " " + toCurrency);
+        cur = response
+    });}
+    else{ cur = 1}
+
+
+    try {
+        const product = await ProductModel.find({ approved: true });
+        // return product; <-- this
+        res.status(200).render('ProductPage', {
+            prod: product,
+            CUR: cur,
+            CURRENCY: _CUR
+
         });
     } catch(error) {
         res.status(404).render('ProductPage', { prod: error.message });

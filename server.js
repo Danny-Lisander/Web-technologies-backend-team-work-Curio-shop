@@ -54,14 +54,14 @@ const specs = swaggerDocument(options)
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
 
 // routes
+app.use("/aboutUs", require("./routes/aboutUs"));
 app.use("/registrationPage", require("./routes/RegistrationPage")); // if localhost:3000/RegistrationPage
 app.use("/signInPage", require("./routes/SignInPage")); // if localhost:3000/SignInPage
 app.use("/yourMailAddress", require("./routes/YourMailAddress"));
 app.use("/productSearch", require("./routes/ProductSearch")); // if local
 app.use("/adminPanel", require("./routes/AdminPanel"));
 app.use("/productsSwagger", require("./routes/ProductsSwagger"));
-app.use("/", require("./routes/Main")); //
-
+app.use("/", require("./routes/Main"));
 
 
 let port = process.env.PORT;

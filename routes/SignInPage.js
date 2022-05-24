@@ -27,7 +27,7 @@ authorization = (req, res, next) => {
     }
 };
 
-router.get('/', (req, res) => {
+router.get('/', authMiddleware, (req, res) => {
 
     res.render('SignInPage.ejs')
 })

@@ -8,7 +8,7 @@ router.get('/', (req, res) =>{
     ProductController.findAll(req, res);
 })
 
-router.get("/:CUR", (req, res) => {
+router.get("/convert/:CUR", (req, res) => {
     ProductController.findAllCUR(req, res);
 })
 

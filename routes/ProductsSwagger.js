@@ -22,7 +22,7 @@ const ProductModel = require('../models/ProductModel');
  *                  type: string
  *                  description: The product title
  *              price:
- *                  type: float
+ *                  type: number
  *                  description: The product price
  *              currency:
  *                  type: string
@@ -34,7 +34,7 @@ const ProductModel = require('../models/ProductModel');
  *                  type: string
  *                  description: The product description
  *              date:
- *                  type: string
+ *                  type: date
  *                  description: Date when product was uploaded
  *              approved:
  *                  type: boolean
@@ -124,7 +124,7 @@ router.get("/:id", async (req,res) =>{
 })
 
 /**
- *
+ * @swagger
  * /productsSwagger:
  *  post:
  *      summary: Create a new product
@@ -166,7 +166,7 @@ router.post("/", async (req,res) => {
 })
 
 /**
- *
+ * @swagger
  * /productsSwagger/{id}:
  *  put:
  *      summary: Update the product by the id
@@ -189,43 +189,59 @@ router.post("/", async (req,res) => {
  *              description: The product was updated
  *              content:
  *                  application/json:
- *                  schema:
- *                      $ref: '#/components/schemas/Product'
+ *                      schema:
+ *                          $ref: '#/components/schemas/Product'
  *          404:
  *              description: The product was not found
  *          500:
- *              descripiton: Some error happened
+ *              description: Some error happened
  */
 
-router.put("/:id", (req,res) => {
+router.put("/:id", async (req,res) => {
     try {
-        ProductModel.findByIdAndUpdate(req.params.id, req.body, { useFindAndModify: false }).then(data => {
+        await ProductModel.findByIdAndUpdate(req.params.id, req.body, { useFindAndModify: false }).then(async data => {
             if (!data) {
-                res.status(404).send({
-                    message: `User not found.`
-                });
-            }else{
-                const product = ProductModel.findById(req.params.id);
-                res.json(product);
+                res.sendStatus(404)
+            } else {
+                const product = await ProductModel.findById(req.params.id);
+                res.status(200).json(product);
             }
         });
     }
     catch (err) {
-        res.status(500).send(err);
+        res.status(500);
     }
 })
+
+/**
+ * @swagger
+ *  /productsSwagger/{id}:
+ *      delete:
+ *          summary: Remove the product by id
+ *          tags: [Products]
+ *          parameters:
+ *              - in: path
+ *                name: id
+ *                schema:
+ *                  type: string
+ *                required: true
+ *                description: The product id
+ *          responses:
+ *              200:
+ *                  description: The product was deleted
+ *              404:
+ *                  description: THe product was not found
+ */
 
 router.delete("/:id", (req,res) => {
     ProductModel.findByIdAndRemove(req.params.id).then(data => {
         if (!data) {
-            res.status(404).send({
-                message: `User not found.`
-            });
+            res.sendStatus(404);
         } else {
             res.sendStatus(200);
         }
     }).catch(err => {
-        res.status(500).send(err);
+        res.status(500);
     });
 })
 

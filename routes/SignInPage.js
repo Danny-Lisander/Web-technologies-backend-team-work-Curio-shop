@@ -33,7 +33,6 @@ router.get('/', authMiddleware, (req, res) => {
 
 router.post('/',  (req, res)=>{
     UserController.signIN(req, res)
-    ProductController.findAll(req, res);
 })
 
 

@@ -25,7 +25,7 @@ exports.create = async (req, res) => {
             user.password = hash;
 
             user.save().then(data => {
-                ProductController.findAll(req, res);
+                res.redirect('/signInPage');
             }).catch(err => {
                 res.status(500).send({
                     message: err.message || "Some error occurred while creating user"
@@ -160,10 +160,12 @@ exports.signIN = async (req, res) => {
                         }
 
                         const token =  jwt.sign(payload, secret, { expiresIn: "1h"})
-                        return res.cookie("curio_access_token", token, {
+                        res.cookie("curio_access_token", token, {
                             httpOnly: true,
                             secure: process.env.NODE_ENV === "production",
                         })
+
+                        res.redirect('/');
                     }
                 }
             })

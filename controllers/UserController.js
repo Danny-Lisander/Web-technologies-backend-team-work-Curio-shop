@@ -162,12 +162,12 @@ exports.signIN = async (req, res) => {
                         }
 
                         const token =  jwt.sign(payload, secret, { expiresIn: "1h"})
-                        res.cookie("curio_access_token", token, {
+                        res
+                            .cookie("curio_access_token", token, {
                             httpOnly: true,
                             secure: process.env.NODE_ENV === "production",
                         })
-
-                        res.redirect('/');
+                            .redirect('/');
                     }
                 }
             })

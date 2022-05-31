@@ -16,7 +16,7 @@ exports.findAll = async (req, res) =>{
     let id = 0;                                     // This
     let role = 0;                                   // This
     if (token) {                                    // This
-        jwt.verify(token, secret, async (err,data) => {
+        await jwt.verify(token, secret, async (err,data) => {
             if (err) {
                 UserController.logOUT(req,res);
             }

@@ -136,7 +136,7 @@ exports.signIN = async (req, res) => {
         await UserModel.findOne({email: email})
             .then(data => {
                 if(!data) {
-                    errors.push({msg: "This email is registered!"})
+                    errors.push({msg: "This email is not registered!"})
                     res.render("SignInPage", {
                         ID: 0,
                         Role: 0,

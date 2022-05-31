@@ -12,7 +12,7 @@ const ProductSchema = new mongoose.Schema({
     },
     currency:{
       type: String,
-      required: true,
+      required: false,
       default: 'KZT'
     },
     ownerID: {
@@ -32,9 +32,9 @@ const ProductSchema = new mongoose.Schema({
         type: [Boolean],
         default: false
     },
-    imgSrc:{
-        type: String,
-        default: ''
+    image:{
+        data: Buffer,
+        contentType: String
     }
 });
 

@@ -10,7 +10,20 @@
 </head>
 <body>
 <%- include( 'include/navbar' ) %>
+
 <div class="container pt-5">
+    <%
+    if(typeof errors != 'undefined') {
+    errors.forEach((error) => {
+    %>
+        <div class="alert alert-danger" role="alert">
+            <%= error.msg%>
+        </div>
+    <%
+    })
+    }
+    %>
+    <form action="/offerProduct" enctype="multipart/form-data" method="post">
     <div class="card card-primary">
         <div class="card-header">
             <h3 class="card-title">Offer product</h3>
@@ -18,22 +31,25 @@
         <div class="card-body">
             <div class="form-group">
                 <label for="inputName">Product Name</label>
-                <input type="text" id="inputName" class="form-control">
+                <input name = "name" type="text" id="inputName" class="form-control">
             </div>
             <div class="form-group mt-2">
                 <label for="inputDescription">Product Description</label>
-                <textarea id="inputDescription" class="form-control" rows="4"></textarea>
+                <textarea name = "description" id="inputDescription" class="form-control" rows="4"></textarea>
             </div>
             <div class="form-group mt-2">
                 <label for="inputPrice">Price</label>
-                <input type="text" id="inputPrice" class="form-control" placeholder="10000">
+                <input name = "price" type="text" id="inputPrice" class="form-control" placeholder="10000">
             </div>
+
+            <input type="file" name="testImage" value="testImage" accept="image/*" />
         </div>
     </div>
     <div class="col-12 mt-3" style="display: flex; justify-content: space-between">
         <a href="/">Cancel</a>
         <input type="submit" value="Offer" class="btn btn-success btn-sm submit-offer">
     </div>
+    </form>
 </div>
 </body>
 </html>

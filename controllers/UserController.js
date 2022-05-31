@@ -1,11 +1,9 @@
 const UserModel = require('../models/UserModel');
-const UserController = require('../controllers/UserController')
 const Role = require('../models/Role');
 const {validationResult, check} = require("express-validator");
 const bcrypt = require("bcryptjs");
 const {secret} = require('../config/config')
 const jwt = require("jsonwebtoken");
-const ProductController = require("./ProductController");
 
 // Create and Save a new user
 exports.create = async (req, res) => {
@@ -183,7 +181,7 @@ exports.logOUT = async (req, res) => {
     return res
         .clearCookie("curio_access_token")
         .status(200)
-        .redirect("/signInPage")
+        .redirect('/signInPage')
 }
 
 exports.verification = async (req, res) => {

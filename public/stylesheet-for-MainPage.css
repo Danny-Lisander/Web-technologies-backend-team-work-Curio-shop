@@ -56,6 +56,7 @@ a {
 .form-signin {
     width: 500px;!important;
     margin: auto;
+    margin-top: 1rem;
 }
 
 .form-floating {
@@ -166,4 +167,10 @@ a {
     font-size: 60px;
     top: 20px;
     line-height: 1;
+}
+
+.submit-offer:hover {
+    -webkit-box-shadow: 4px 4px 10px 0px rgba(34, 60, 80, 0.31);
+    -moz-box-shadow: 4px 4px 10px 0px rgba(34, 60, 80, 0.31);
+    box-shadow: 4px 4px 10px 0px rgba(34, 60, 80, 0.31);
 }

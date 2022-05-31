@@ -1,11 +1,10 @@
 const ProductModel = require('../models/ProductModel');
 const UserModel = require("../models/UserModel");
+const UserController = require("./UserController")
 const CC = require("currency-converter-lt");
 const {response} = require("express");
-const UserController = require("../controllers/UserController")
 const {secret} = require('../config/config')// This
 const jwt = require("jsonwebtoken");        // This
-
 // Create and Save a new user
 exports.create = async (req, res) => {
 
@@ -17,12 +16,17 @@ exports.findAll = async (req, res) =>{
     let id = 0;                                     // This
     let role = 0;                                   // This
     if (token) {                                    // This
-        const data = jwt.verify(token, secret);     // This
-        id = await UserModel.find({ _id: data.id });// This
-        name = id.name;                             // This
-        role = data.roles;
-    }                         // This
-
+        jwt.verify(token, secret, async (err,data) => {
+            if (err) {
+                UserController.logOUT(req,res);
+            }
+            else {
+                id = await UserModel.find({_id: data.id});// This
+                name = id.name;                             // This
+                role = data.roles;
+            }
+        });
+    }
     console.log(id + ' ' + role)
     let cur = 1;
     try {

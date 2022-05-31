@@ -1,21 +1,23 @@
 const jwt = require('jsonwebtoken')
 const {secret} = require('../config/config')
 
-module.exports = function (req, res, next) {
+module.exports = (req, res, next) => {
     if (req.method === "OPTIONS") {
         next()
     }
 
+    const token = req.cookies.curio_access_token;
+    if (!token || token === 'undefined' || token === 'NaN') {
+        req.userId = 0;
+        req.userRole = 0;
+        return next()
+    }
     try {
-        const token = req.headers.authorization.split(' ')[1]
-        if (!token) {
-            return res.status(403).json({message: "User does not authorized"})
-        }
-        const decodedData = jwt.verify(token, secret)
-        req.user = decodedData
-        next()
-    } catch (error) {
-        console.log(error)
-        return res.status(403).json({message: "User does not authorized"})
+        const data = jwt.verify(token, secret);
+        req.userId = data.id;
+        req.userRole = data.roles;
+        return next();
+    } catch {
+        return res.sendStatus(403);
     }
 };

@@ -3,7 +3,9 @@ const UserController = require('../controllers/UserController')
 const Role = require('../models/Role');
 const {validationResult, check} = require("express-validator");
 const bcrypt = require("bcryptjs");
-
+const {secret} = require('../config/config')
+const jwt = require("jsonwebtoken");
+const ProductController = require("./ProductController");
 
 // Create and Save a new user
 exports.create = async (req, res) => {
@@ -113,9 +115,7 @@ exports.destroy = async (req, res) => {
 };
 
 
-const {secret} = require('../config/config')
-const jwt = require("jsonwebtoken");
-const ProductController = require("./ProductController");
+
 
 const generateAccessToken = (id, roles) => {
     const payload = {
@@ -184,4 +184,15 @@ exports.logOUT = async (req, res) => {
         .clearCookie("curio_access_token")
         .status(200)
         .render('SignInPage.ejs')
+}
+
+exports.verification = async (req, res) => {
+    const token = req.cookies.curio_access_token;
+    let id = 0;
+    if (token) {
+        const data = jwt.verify(token, secret);
+        id = await UserModel.find({ _id: data.id });
+        name = id.name;
+    }
+    return id
 }

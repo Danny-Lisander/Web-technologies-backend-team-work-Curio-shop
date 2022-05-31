@@ -11,8 +11,8 @@
                 </form>
             </div>
             <div id="regLoginButton">
-                <a class="regLoginButton" href="/registrationPage">Sign up</a>
-                <a class="regLoginButton" href="/signInPage">Sign in</a>
+                <a class="navbar-button" href="/registrationPage">Sign up</a>
+                <a class="navbar-button" href="/signInPage">Sign in</a>
             </div>
         </div>
     </div>
@@ -29,6 +29,7 @@
                 </form>
             </div>
             <div id="user_profile" class="dropdown">
+                <a class="navbar-button navbar-offer-button" href="/">offer a product</a>
                 <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
                     <i class="fas fa-user rounded-circle me-2" aria-hidden="true" style="border-radius: 4px; background: black; padding: 5px; color: rgb(255, 194, 82);"></i>
                     <strong id="user_name"><%= ID[0].name%></strong>
@@ -40,10 +41,6 @@
                     <li><hr class="dropdown-divider"></li>
                     <li><a class="dropdown-item logout" href="/signInPage">Sign out</a></li>
                 </ul>
-            </div>
-            <div id="regLoginButton">
-                <a class="regLoginButton" href="/">offer a product</a>
-                <a class="regLoginButton" href="/signInPage">Sign out</a>
             </div>
         </div>
     </div>

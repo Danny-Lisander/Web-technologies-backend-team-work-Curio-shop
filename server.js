@@ -61,6 +61,7 @@ app.use("/yourMailAddress", require("./routes/YourMailAddress"));
 app.use("/productSearch", require("./routes/ProductSearch")); // if local
 app.use("/adminPanel", require("./routes/AdminPanel"));
 app.use("/productsSwagger", require("./routes/ProductsSwagger"));
+app.use("/offerProduct", require("./routes/OfferProduct"));
 app.use("/", require("./routes/Main"));
 
 

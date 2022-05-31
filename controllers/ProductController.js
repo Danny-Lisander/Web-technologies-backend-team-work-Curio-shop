@@ -2,8 +2,10 @@ const ProductModel = require('../models/ProductModel');
 const UserModel = require("../models/UserModel");
 const CC = require("currency-converter-lt");
 const {response} = require("express");
+const UserController = require("../controllers/UserController")
 const {secret} = require('../config/config')// This
 const jwt = require("jsonwebtoken");        // This
+
 // Create and Save a new user
 exports.create = async (req, res) => {
 
@@ -18,7 +20,9 @@ exports.findAll = async (req, res) =>{
         const data = jwt.verify(token, secret);     // This
         id = await UserModel.find({ _id: data.id });// This
         name = id.name;                             // This
-        role = data.roles;}                         // This
+        role = data.roles;
+    }                         // This
+
     console.log(id + ' ' + role)
     let cur = 1;
     try {
@@ -85,7 +89,16 @@ exports.findAllCUR = async (req, res) =>{
 //for AdminPanel
 exports.findall = async (reg, res) =>{
     try {
-        const prod = await ProductModel.find({ approved: true });
+        const prod = await ProductModel.aggregate([
+            { $match: { approved: false } },
+            { $lookup: {
+                    from: "users",
+                    localField: "ownerID",
+                    foreignField: "_id",
+                    as: "ownerInfo"
+                }
+            }
+        ]);
         res.status(200).render('adminPanelOptions/products', {
             n: 3,
             page: ["Users", "Products", "Proposition"],
@@ -100,7 +113,16 @@ exports.findall = async (reg, res) =>{
 
 exports.findProposition = async (reg, res) =>{
     try {
-        const prod = await ProductModel.find({ approved: false });
+        const prod = await ProductModel.aggregate([
+            { $match: { approved: false } },
+            { $lookup: {
+                    from: "users",
+                    localField: "ownerID",
+                    foreignField: "_id",
+                    as: "ownerInfo"
+                }
+            }
+        ]);
         res.status(200).render('adminPanelOptions/propositions', {
             n: 3,
             page: ["Users", "Products", "Proposition"],
@@ -109,7 +131,7 @@ exports.findProposition = async (reg, res) =>{
             mydata: prod
         });
     } catch(error) {
-        res.status(404).render('adminPanelOptions/products', { mydata: error.message });
+        res.status(404).render('adminPanelOptions/products', {mydata: error.message});
     }
 };
 

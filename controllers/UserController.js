@@ -183,7 +183,7 @@ exports.logOUT = async (req, res) => {
     return res
         .clearCookie("curio_access_token")
         .status(200)
-        .render('SignInPage.ejs')
+        .redirect("/signInPage")
 }
 
 exports.verification = async (req, res) => {

@@ -20,7 +20,7 @@
                 <%for (i = 0; i < n; i++){ %>
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="<%= link[i]%>">
-                            <i class="fa-solid <%= classes[i]%>"></i>
+                            <i class="fa-solid <%= classes[i]%> nav-icon"></i>
                             <%= page[i]%>
                         </a>
                     </li>
@@ -36,7 +36,7 @@
             <th scope="col">Price</th>
             <th scope="col">Description</th>
             <th scope="col">Data</th>
-            <th scope="col">Owner ID</th>
+            <th scope="col">Owner Name</th>
         </tr>
         </thead>
         <tbody>
@@ -47,7 +47,7 @@
             <td><%= mydata[i].price%> <%= mydata[i].currency%></td>
             <td><%= mydata[i].description%></td>
             <td><%= mydata[i].date%></td>
-            <td><%= mydata[i].ownerID%></td>
+            <td><a href=""><%= mydata[i].ownerInfo[0].name%></a></td>
         </tr>
         <%}%>
         </tbody>

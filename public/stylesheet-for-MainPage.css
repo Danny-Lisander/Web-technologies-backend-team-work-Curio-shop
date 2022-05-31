@@ -16,7 +16,10 @@ a {
     -webkit-box-shadow: 0px 6px 10px 0px rgba(34, 60, 80, 0.2);
     -moz-box-shadow: 0px 6px 10px 0px rgba(34, 60, 80, 0.2);
     box-shadow: 0px 6px 10px 0px rgba(34, 60, 80, 0.2);
-    margin-bottom: 50px;
+}
+
+.navbar-offer-button {
+    margin-right: 1rem;
 }
 
 .admin-navbar {
@@ -30,6 +33,26 @@ a {
     align-items: center;
 }
 
+
+.navbar-button {
+    color: #283845;
+    padding: 0.2rem 1rem;
+    border: 1px solid #F29559;
+    border-radius: 4px;
+    align-items: center;
+}
+
+.navbar-button:hover {
+    background-color: #F29559;
+    border: 1px solid #F29559;
+    color: #fff;
+    transition: all 0.2s ease;
+}
+
+#user_profile {
+    display: flex;
+}
+
 .form-signin {
     width: 500px;!important;
     margin: auto;
@@ -41,21 +64,6 @@ a {
 
 .navbar-search {
     width: 50%;
-}
-
-.regLoginButton {
-    color: #283845;
-    padding: 0.2rem 1rem;
-    border: 1px solid #F29559;
-    border-radius: 4px;
-    align-items: center;
-}
-
-.regLoginButton:hover {
-    background-color: #F29559;
-    border: 1px solid #F29559;
-    color: #fff;
-    transition: all 0.2s ease;
 }
 
 .btn_su {
@@ -102,9 +110,60 @@ a {
     box-shadow: 4px 4px 10px 0px rgba(34, 60, 80, 0.31);
 }
 
+.card-header {
+    background: #59f2bf;
+    color: #0000009c;
+}
+
 .card-img {
     width: auto;
     height: 273px;
     background-position: top;
     background-size: cover;
+}
+
+.nav-icon {
+    width: 1.6rem;
+    text-align: center;
+}
+
+.small-box {
+    border-radius: 0.25rem;
+    box-shadow: 0 0 1px rgb(0 0 0 / 13%), 0 1px 3px rgb(0 0 0 / 20%);
+    display: block;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.small-box .inner {
+    padding: 10px;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+.small-box .small-box-footer {
+    background-color: rgba(0,0,0,.1);
+    color: rgba(255,255,255,.8);
+    display: block;
+    padding: 3px 0;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    z-index: 10;
+}
+
+.row {
+    width: 100%;
+}
+
+.small-box .icon {
+    color: rgba(0,0,0,.15);
+    z-index: 0;
+    position: absolute;
+    right: 15px;
+    font-size: 60px;
+    top: 20px;
+    line-height: 1;
 }

@@ -140,6 +140,8 @@ exports.signIN = async (req, res) => {
                 if(!data) {
                     errors.push({msg: "This email is registered!"})
                     res.render("SignInPage", {
+                        ID: 0,
+                        Role: 0,
                         errors
                     })
                 } else {
@@ -147,6 +149,8 @@ exports.signIN = async (req, res) => {
                     if(!validPassword){
                         errors.push({msg: "Password is not correct!"})
                         res.render("SignInPage", {
+                            ID: 0,
+                            Role: 0,
                             errors
                         })
                     }

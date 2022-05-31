@@ -28,7 +28,10 @@ authorization = (req, res, next) => {
 };
 
 router.get('/', authMiddleware, (req, res) => {
-    res.render('SignInPage.ejs')
+    res.render('SignInPage.ejs',{
+        ID: 0,
+        Role: 0,
+    })
 })
 
 router.post('/',  (req, res)=>{

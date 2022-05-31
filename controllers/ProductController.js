@@ -2,23 +2,34 @@ const ProductModel = require('../models/ProductModel');
 const UserModel = require("../models/UserModel");
 const CC = require("currency-converter-lt");
 const {response} = require("express");
-
+const {secret} = require('../config/config')// This
+const jwt = require("jsonwebtoken");        // This
 // Create and Save a new user
 exports.create = async (req, res) => {
 
 };
 
 //for MainPage
-exports.findAll = async (reg, res) =>{
+exports.findAll = async (req, res) =>{
+    const token = req.cookies.curio_access_token;   // This
+    let id = 0;                                     // This
+    let role = 0;                                   // This
+    if (token) {                                    // This
+        const data = jwt.verify(token, secret);     // This
+        id = await UserModel.find({ _id: data.id });// This
+        name = id.name;                             // This
+        role = data.roles;}                         // This
+    console.log(id + ' ' + role)
     let cur = 1;
     try {
         const product = await ProductModel.find({ approved: true });
-        // return product; <-- this
+        // return product;
         res.status(200).render('ProductPage', {
             prod: product,
             CUR: cur,
-            CURRENCY: 'KZT'
-
+            CURRENCY: 'KZT',
+            ID: id,     //This
+            Role: role, //This
         });
     } catch(error) {
         res.status(404).render('ProductPage', { prod: error.message });

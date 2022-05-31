@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const cookieParser = require("cookie-parser");
 
 
+
 // swagger
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('swagger-jsdoc');
@@ -25,7 +26,6 @@ mongoose.connect(dbConfig.url, {
 
 app.set('view engine', 'ejs');
 app.set('views', 'temp');
-
 
 const options = {
     definition: {
@@ -49,7 +49,6 @@ app.use(express.static(__dirname));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(cookieParser());
-
 // swagger
 const specs = swaggerDocument(options)
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));

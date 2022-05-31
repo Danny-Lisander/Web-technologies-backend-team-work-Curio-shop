@@ -2,12 +2,25 @@ const express = require("express");
 const UserController  = require("../controllers/UserController");
 const UserModel = require("../models/UserModel")
 const router = express.Router();
-const {check} = require("express-validator")
-const {validationResult} = require('express-validator')
+const {secret} = require('../config/config')
+const jwt = require("jsonwebtoken");
 
 
 router.get('/', (req, res) => {
-    res.render('RegistrationPage.ejs');
+    const token = req.cookies.curio_access_token;   // This
+    let id = 0;                                     // This
+    let role = 0;                                   // This
+    if (token) {                                    // This
+        const data = jwt.verify(token, secret);     // This
+        id = UserModel.find({ _id: data.id });// This
+        name = id.name;                             // This
+        role = data.roles;}
+
+    res.render('RegistrationPage.ejs', {
+        ID: id,
+        Role: role,
+    });
+
 })
 
 router.post('/', (req, res) => {

@@ -4,6 +4,7 @@ const nodemailer = require('nodemailer');
 const dbConfig = require('./config/database.config');
 const mongoose = require('mongoose');
 const cookieParser = require("cookie-parser");
+const methodOverride = require('method-override');
 
 
 
@@ -42,15 +43,16 @@ const options = {
         ],
     },
     apis: ["./routes/*.js"]
-}
+};
 
 
 app.use(express.static(__dirname));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(cookieParser());
+app.use(methodOverride('_method'));
 // swagger
-const specs = swaggerDocument(options)
+const specs = swaggerDocument(options);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
 
 // routes
@@ -62,13 +64,14 @@ app.use("/productSearch", require("./routes/ProductSearch")); // if local
 app.use("/adminPanel", require("./routes/AdminPanel"));
 app.use("/productsSwagger", require("./routes/ProductsSwagger"));
 app.use("/offerProduct", require("./routes/OfferProduct"));
+app.use("/profile", require("./routes/Profile"));
 app.use("/", require("./routes/Main"));
 
 
 let port = process.env.PORT;
 if (port == null || port === "") {
     port = 3000;
-}
+};
 
 app.listen(port, () => {
     console.log(`App listening at http://localhost:${port}`)

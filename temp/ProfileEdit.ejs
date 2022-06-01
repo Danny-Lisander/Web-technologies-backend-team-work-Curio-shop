@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Profile</title>
+    <%- include( 'include/head' ) %>
+</head>
+<body class="d-flex flex-column min-vh-100">
+<%- include( 'include/navbar' ) %>
+
+<div class="container mt-5 mb-5">
+    <%if(typeof err != 'undefined') {%>
+        <div class="alert alert-danger" role="alert">
+            <%= err%>
+        </div>
+    <%}%>
+    <div class="card mb-3">
+        <div class="card-header">
+            <h5 class="mb-0">Profile Settings</h5>
+        </div>
+        <div class="card-body bg-light">
+            <form action="/profile/edit?_method=PUT" method="post" class="row g-3">
+                <div class="col-lg-12">
+                    <label class="form-label" for="first-name">Your name</label>
+                    <input name="username" class="form-control" id="first-name" type="text" value="<%= userInfo.name%>"></div>
+                <div class="col-lg-6">
+                    <label class="form-label" for="email1">Email</label>
+                    <input name="email" class="form-control" id="email" type="text" value="<%= userInfo.email%>" readonly></div>
+                <div class="col-12 d-flex justify-content-end">
+                    <button class="btn btn-primary" type="submit">Update</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<%- include( 'include/footer' ) %>
+</body>
+</html>

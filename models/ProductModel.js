@@ -16,7 +16,7 @@ const ProductSchema = new mongoose.Schema({
       default: 'KZT'
     },
     ownerID: {
-        type: String,
+        type: [mongoose.Types.ObjectId],
         required: true
     },
     description: {
@@ -29,14 +29,14 @@ const ProductSchema = new mongoose.Schema({
         default: Date.now
     },
     approved:{
-        type: [Boolean],
-        default: false
+        type: String,
+        default: "false"
     },
-    image:{
+    imgSrc:{
         data: Buffer,
         contentType: String
     }
 });
 
-const user = new mongoose.model('Products', ProductSchema);
+const user = mongoose.model('Products', ProductSchema);
 module.exports = user;

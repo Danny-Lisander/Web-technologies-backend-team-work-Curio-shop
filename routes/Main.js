@@ -4,16 +4,17 @@ const CC = require("currency-converter-lt");
 const ProductModel = require("../models/ProductModel");
 const {response} = require("express");
 const router = express.Router();
-router.get('/', (req, res) =>{
-    ProductController.findAll(req, res);
-})
 
-router.get("/convert/:CUR", (req, res) => {
-    ProductController.findAllCUR(req, res);
-})
+router.get('/', ProductController.findAll);
 
-router.get("/product/:id", (req,res) => {
-    ProductController.findOne(req, res);
-})
+router.get("/convert/:CUR", ProductController.findAllCUR);
+
+router.get("/product/:id", ProductController.findOne);
+
+router.get("/product/delete/:id", ProductController.destroyFromUserSide);
+
+router.get("/product/approved/:id", ProductController.approveProduct);
+
+router.get("/wishlist/:id", ProductController.addToWishlist);
 
 module.exports = router;

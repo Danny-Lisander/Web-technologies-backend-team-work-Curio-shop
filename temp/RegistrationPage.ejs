@@ -5,8 +5,10 @@
     <title>Register</title>
     <%- include( 'include/head' ) %>
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
+
 <%- include( 'include/navbar' ) %>
+
 <main class="form-signin text-center">
     <form action = "/registrationPage" method = "post">
         <h1 class="h3 mb-3 fw-normal">Please sign up</h1>
@@ -47,5 +49,8 @@
         <p class="mt-5 mb-3 text-muted">© 2022 - to be continued</p>
     </form>
 </main>
+
+<%- include( 'include/footer' ) %>
+
 </body>
 </html>

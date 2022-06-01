@@ -1,4 +1,5 @@
 const UserModel = require('../models/UserModel');
+const UserController = require('./UserController')
 const Role = require('../models/Role');
 const {validationResult, check} = require("express-validator");
 const bcrypt = require("bcryptjs");
@@ -36,6 +37,23 @@ exports.create = async (req, res) => {
 
 // Retrieve all users from the database.
 exports.findAll = async (req, res) => {
+
+    const token = req.cookies.curio_access_token;
+    let id = 0;
+    let role = 0;
+    if (token) {
+        await jwt.verify(token, secret, async (err,data) => {
+            if (err) {
+                UserController.logOUT(req,res);
+            }
+            else {
+                id = await UserModel.find({_id: data.id});
+                name = id.name;
+                role = data.roles;
+            }
+        });
+    }
+
     try {
         const user = await UserModel.find();
         res.status(200).render('adminPanelOptions/users', {
@@ -43,7 +61,9 @@ exports.findAll = async (req, res) => {
             page: ["Users", "Products", "Proposition"],
             classes: ["fa-users", "fa-cart-shopping", "fa-file"],
             link: ["users","products","propositions"],
-            mydata: user
+            mydata: user,
+            ID: id,
+            Role: role
         });
     } catch(error) {
         res.status(404).render('adminPanelOptions/users', { mydata: error.message });
@@ -52,11 +72,31 @@ exports.findAll = async (req, res) => {
 
 // Find a single User with an id
 exports.findOne = async (req, res) => {
+    const token = req.cookies.curio_access_token;
+    let id = 0;
+    let role = 0;
+    if (token) {
+        await jwt.verify(token, secret, async (err,data) => {
+            if (err) {
+                UserController.logOUT(req,res);
+            }
+            else {
+                id = await UserModel.find({_id: data.id});
+                name = id.name;
+                role = data.roles;
+            }
+        });
+    }
+
     try {
-        const user = await UserModel.findById(req.params.id);
-        res.status(200).json(user);
+        const userInfo = await UserModel.findById(id);
+        res.status(200).render('ProfileEdit', {
+            userInfo: userInfo,
+            ID: id,
+            Role: role
+        });
     } catch(error) {
-        res.status(404).json({ message: error.message});
+        res.status(404).render('ProfileEdit', { prod: error.message });
     }
 };
 
@@ -70,27 +110,44 @@ exports.getUsers = async (req, res) =>{
 
 // Update a user by the id in the request
 exports.update = async (req, res) => {
+    const token = req.cookies.curio_access_token;
+    let id = 0;
+    let role = 0;
+    if (token) {
+        await jwt.verify(token, secret, async (err,data) => {
+            if (err) {
+                UserController.logOUT(req,res);
+            }
+            else {
+                id = await UserModel.findById(data.id);
+            }
+        });
+    }
+    console.log(id);
     if(!req.body) {
         res.status(400).send({
-            message: "Data to update can not be empty!"
+            err: "Data to update can not be empty!"
         });
     }
 
-    const id = req.params.id;
-
-    await UserModel.findByIdAndUpdate(id, req.body, { useFindAndModify: false }).then(data => {
+    await UserModel.findByIdAndUpdate(id._id, {name: req.body.username})
+        .then(async data => {
         if (!data) {
-            res.status(404).send({
-                message: `User not found.`
-            });
-        }else{
-            res.send({ message: "User updated successfully." })
+            const userInfo = await UserModel.findById(id);
+            res.render('ProfileEdit', {
+                err: "User not found",
+                userInfo: userInfo,
+                ID: id,
+                Role: role
+        })
+        } else {
+            UserController.findOne(req, res);
         }
-    }).catch(err => {
-        res.status(500).send({
-            message: err.message
-        });
-    });
+        }).catch(err => {
+            res.status(500).send({
+                message: err.message
+            });
+        })
 };
 
 // Delete a user with the specified id in the request

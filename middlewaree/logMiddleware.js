@@ -15,9 +15,8 @@ module.exports = (req, res, next) => {
     }
     try {
         const data = jwt.verify(token, secret)
-            req.userId = data.id;
+            req.userId = data[0];
             req.userRole = data.roles;
-
             return next();
     } catch {
         return res.sendStatus(403);

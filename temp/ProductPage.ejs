@@ -20,15 +20,17 @@
     </div>
     <div class="row">
         <%for(i = 0; i < prod.length; i++) {%>
+        <%for(j = 0; j < wishlist.length; j++) {%>
         <div class="product-block">
             <div class="card">
-                <%if(ID !== 0)%>
+                <%if(ID !== 0) {%>
                 <a href="/wishlist/<%= prod[i]._id%>" style="color:#000;">
                     <i class="fa-solid fa-circle-plus add-wishlist"></i>
                 </a>
-<!--                <i class="fa-solid fa-circle-check wishlisted"></i>-->
+                    <%} else if(String(ID._id) == wishlist[i].ownerID) {%>
+                    <i class="fa-solid fa-circle-check wishlisted"></i>
                 <%
-                    console.log(prod);
+                }
                 if(prod[i].imgSrc !== '') {%>
                     <div class="card-img" style="background-image: url('<%= prod[i].imgSrc %>')"></div>
                 <%} else {%>

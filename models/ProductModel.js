@@ -7,7 +7,7 @@ const ProductSchema = new mongoose.Schema({
         default: ''
     },
     price: {
-        type: [Number],
+        type: Number,
         required: true
     },
     currency:{
@@ -16,7 +16,7 @@ const ProductSchema = new mongoose.Schema({
       default: 'KZT'
     },
     ownerID: {
-        type: [mongoose.Types.ObjectId],
+        type: mongoose.Types.ObjectId,
         required: true
     },
     description: {
@@ -25,7 +25,7 @@ const ProductSchema = new mongoose.Schema({
         default: 'good stuff for dead inside'
     },
     date: {
-        type: [Date],
+        type: Date,
         default: Date.now
     },
     approved:{

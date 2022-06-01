@@ -5,6 +5,7 @@ const CC = require("currency-converter-lt");
 const {response} = require("express");
 const {secret} = require('../config/config')// This
 const jwt = require("jsonwebtoken");        // This
+const wishlistModel = require('../models/WishlistsModel');
 
 //for MainPage
 exports.findAll = async (req, res) =>{
@@ -23,17 +24,21 @@ exports.findAll = async (req, res) =>{
             }
         });
     }
-    console.log(id + ' ' + role)
+
     let cur = 1;
     try {
         const product = await ProductModel.find({ approved: "true" });
-        // return product;
+        const wishlist = await wishlistModel.find({ ownerID: id[0]._id })
+
+
+
         res.status(200).render('ProductPage', {
             prod: product,
             CUR: cur,
             CURRENCY: 'KZT',
-            ID: id,     //This
-            Role: role, //This
+            ID: id,
+            Role: role,
+            wishlist: wishlist
         });
     } catch(error) {
         res.status(404).render('ProductPage', { prod: error.message });
@@ -159,7 +164,7 @@ exports.findPropositions = async (req, res) =>{
                 }
             }
         ]);
-        console.log(prod);
+
         res.status(200).render('adminPanelOptions/propositions', {
             n: 3,
             page: ["Users", "Products", "Proposition"],
@@ -300,7 +305,7 @@ exports.addToWishlist = async (req, res) => {
                     UserController.logOUT(req,res);
                 }
                 else {
-                    id = await UserModel.find({_id: data.id});
+                    id = await UserModel.findById(data.id);
                     name = id.name;
                     role = data.roles;
                 }
@@ -308,13 +313,18 @@ exports.addToWishlist = async (req, res) => {
         }
 
         const product = await ProductModel.findById(req.params.id);
-        res.status(200).render('Product', {
-            prod: product,
-            ID: id,
-            Role: role
-        });
+
+        const newWishlist = new wishlistModel({
+            productID: String(product._id),
+            ownerID: String(id._id)
+        })
+
+         newWishlist
+             .save()
+             .then(() => res.redirect('/'))
+             .catch(err => console.log(err))
     } catch(error) {
-        res.status(404).json({ message: error.message});
+        res.status(404).json({ message: error.message });
     }
 };
 
@@ -332,7 +342,7 @@ exports.approveProduct = async (req, res) => {
             }
         });
     }
-    console.log(id);
+
     if(!req.body) {
         res.status(400).send({
             err: "Data to update can not be empty!"

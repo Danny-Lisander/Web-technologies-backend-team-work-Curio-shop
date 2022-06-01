@@ -41,4 +41,6 @@ router.get("/propositions", ProductController.findPropositions);
 
 router.get('/propositions/delete/:id', ProductController.destroyFromPropositionSide);
 
+router.get('/products/delete/:id', ProductController.destroyFromProductsSide);
+
 module.exports = router;
